@@ -4,7 +4,8 @@
   "dependencies": {
     "jquery": "~1.10.2",
     "bootstrap": "~3.0.0",
-    "knockout.js": "~2.3.0"
+    "knockout.js": "~2.3.0",
+    "jwerty": "~0.3.2"
   },
   "devDependencies": {}
 }
