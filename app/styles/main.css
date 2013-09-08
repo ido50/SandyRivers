@@ -36,3 +36,15 @@ article.current .entry_body {
 article.current h2 a {
 	color: #008097;
 }
+
+#manage_feeds .well {
+	margin-bottom: 0;
+}
+
+#manage_feeds .modal-footer {
+	margin-top: 0;
+}
+
+#manage_feeds .nav {
+	margin-bottom: 1em;
+}

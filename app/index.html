@@ -26,15 +26,18 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="nav navbar-nav">
 					<div class="btn-group navbar-btn">
-						<button type="button" class="btn btn-primary">
+						<button type="button" class="btn btn-default" data-bind="css: { 'btn-primary': reading() == 'unread' }, click: function() { load_entries('unread') }">
 							Unread
-							<span class="badge" data-bind="text: entries().length"></span>
+							<span class="badge" data-bind="visible: reading() == 'unread', text: entries().length"></span>
 						</button>
-						<button type="button" class="btn btn-default">All</button>
+						<button type="button" class="btn btn-default" data-bind="css: { 'btn-primary': reading() == 'all' }, click: function() { load_entries('all') }">
+							All
+							<span class="badge" data-bind="visible: reading() == 'all', text: entries().length"></span>
+						</button>
 					</div>
 				</div>
 				<div class="nav navbar-nav pull-right">
-					<button type="button" class="btn navbar-btn btn-info"><span class="glyphicon glyphicon-list-alt"></span> Manage Feeds</button>
+					<button type="button" class="btn navbar-btn btn-info" data-bind="click: show_feeds"><span class="glyphicon glyphicon-list-alt"></span> Manage Feeds</button>
 				</div>
 			</div>
 		</nav>
@@ -42,17 +45,64 @@
 		<div class="row">
 			<!-- ko if: entries().length > 0 -->
 			<!--   ko foreach: entries -->
-			<article data-bind="css: { current: $parent.current_entry() == $index() }">
+			<article data-bind="visible: !$parent.hidden()[$index()], css: { current: $parent.current_entry() == $index() }">
 				<h2><a href="#" data-bind="text: title, click: function(event, data) {  $parent.toggle_entry($index(), data, event) }"></a></h2>
 				<div class="entry_body" data-bind="html: $data.description"></div>
+				<hr />
 			</article>
-			<hr />
 			<!--   /ko -->
 			<!-- /ko -->
 			<!-- ko if: entries().length == 0 -->
-			<h1>Loading entries...</h1>
+			<div class="well">There are no entries to read. I guess you're screwed.</div>
 			<!-- /ko -->
 		</div>
+
+		<div id="manage_feeds" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="manage_feeds_label" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 id="manage_feeds_label" class="modal-title">Feed Management</h4>
+					</div>
+					<div class="modal-body">
+						<ul id="tabs" class="nav nav-tabs">
+							<li><a href="#existing" data-toggle="tab">Existing Feeds</a></li>
+							<li><a href="#new" data-toggle="tab">Add New Feed</a></li>
+						</ul>
+						<div class="tab-content">
+							<div id="existing" class="tab-pane active">
+								<!-- ko if: feeds().length > 0 -->
+								<div class="list-group" data-bind="foreach: feeds">
+									<a href="#" class="list-group-item" data-bind="text: _id"></a>
+								</div>
+								<!-- /ko -->
+								<!-- ko if: feeds().length == 0 -->
+								<div class="well">Looks like you don't have any feeds. Add some, or whatever...</div>
+								<!-- /ko -->
+							</div>
+							<div id="new" class="tab-pane">
+								<form id="add_feed" role="form" data-bind="submit: add_feed">
+									<fieldset>
+										<div class="form-group">
+											<label for="feed_name">Feed Name</label>
+											<input type="text" class="form-control" id="feed_name" required="required" />
+										</div>
+										<div class="form-group">
+											<label for="feed_url">Feed URL</label>
+											<input type="text" class="form-control" id="feed_url" required="required" />
+										</div>
+										<input type="submit" class="btn btn-default" value="Save" />
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 		<!-- build:js scripts/vendor.js -->
 		<!-- bower:js -->
