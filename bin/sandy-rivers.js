@@ -1,14 +1,10 @@
-/*
- * feed_reader
- * https://github.com/ido50/feed-reader
- *
- * Copyright (c) 2013 Ido Perlmuter
- * Licensed under the GPL3 license.
- */
+#!/usr/bin/env node
 
 var FeedSub = require('feedsub'),
     MongoClient = require('mongodb').MongoClient,
     sanitizer = require('sanitizer');
+
+console.log("Starting Sandy Rivers");
 
 MongoClient.connect('mongodb://127.0.0.1:27017/sandy_rivers', function(err, db) {
 	if (err) throw err;
@@ -24,6 +20,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017/sandy_rivers', function(err, db) 
 		if (err) throw err;
 
 		for (var i = 0; i < results.length; i++) {
+			console.log("Fetching feeds for "+results[i]._id);
 			var reader = new FeedSub(results[i].url, {
 				interval: 10,
 				autoStart: true,

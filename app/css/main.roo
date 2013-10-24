@@ -1,0 +1,51 @@
+body {
+	padding-top: 70px;
+}
+
+body > nav .badge {
+	background-color: #fff;
+	color: #000;
+	margin-left: 0.5em;
+}
+
+#actions {
+	text-align: right;
+}
+
+h2 {
+	font-size: 1.4em;
+
+	a {
+		color: #B5D2D7;
+
+		&:focus {
+			outline: 0;
+		}
+	}
+}
+
+.entry_body {
+	display: none;
+
+	article.current & {
+		display: block;
+	}
+}
+
+article.current h2 a {
+	color: #008097;
+}
+
+#manage_feeds {
+	.well {
+		margin-bottom: 0;
+	}
+
+	.modal-footer {
+		margin-top: 0;
+	}
+
+	.nav {
+		margin-bottom: 1em;
+	}
+}
