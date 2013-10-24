@@ -1,45 +1,4 @@
-$(function() {
-	console.log("Welcome to Sandy Rivers");
-
-	$.ajaxSetup({
-		dataType: 'json',
-		contentType: 'application/json',
-		processData: false
-	});
-
-	var vm = new viewModel();
-
-	ko.applyBindings(vm);
-
-	jwerty.key('x', function() {
-		var current = vm.current_entry();
-		if (current < vm.entries().length) {
-			vm.mark_as_read(current);
-			vm.hide(current, true);
-			vm.current_entry(current + 1);
-		}
-	});
-
-	jwerty.key('z', function() {
-		var current = vm.current_entry();
-		var new_current = current - 1;
-		if (current >= -1) {
-			if (current >= 0) vm.mark_as_read(current);
-			vm.hide(new_current, false);
-			vm.current_entry(current - 1);
-		}
-	});
-
-	jwerty.key('c', function() {
-		var current = vm.current_entry();
-		if (current >= 0 && current < vm.entries().length)
-			window.open(vm.entries()[current]._id, '_blank');
-	});
-
-	vm.load_entries('unread');
-});
-
-function viewModel() {
+function ViewModel() {
 	var self = this;
 
 	self.reading = ko.observable('unread');
@@ -73,7 +32,7 @@ function viewModel() {
 	};
 
 	self.toggle_entry = function(index, event, entry) {
-		if (self.current_entry() == index) {
+		if (self.current_entry() === index) {
 			self.current_entry(-1);
 			//self.entries.splice(index, 1);
 		} else {
@@ -109,3 +68,45 @@ function viewModel() {
 
 	return self;
 }
+
+$(function() {
+	console.log("Welcome to Sandy Rivers");
+
+	$.ajaxSetup({
+		dataType: 'json',
+		contentType: 'application/json',
+		processData: false
+	});
+
+	var vm = new ViewModel();
+
+	ko.applyBindings(vm);
+
+	jwerty.key('x', function() {
+		var current = vm.current_entry();
+		if (current < vm.entries().length) {
+			vm.mark_as_read(current);
+			vm.hide(current, true);
+			vm.current_entry(current + 1);
+		}
+	});
+
+	jwerty.key('z', function() {
+		var current = vm.current_entry();
+		var new_current = current - 1;
+		if (current >= -1) {
+			if (current >= 0) { vm.mark_as_read(current); }
+			vm.hide(new_current, false);
+			vm.current_entry(current - 1);
+		}
+	});
+
+	jwerty.key('c', function() {
+		var current = vm.current_entry();
+		if (current >= 0 && current < vm.entries().length) {
+			window.open(vm.entries()[current]._id, '_blank');
+		}
+	});
+
+	vm.load_entries('unread');
+});
