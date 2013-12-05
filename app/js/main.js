@@ -56,7 +56,7 @@ function ViewModel() {
 			url: '/feeds',
 			type: 'POST',
 			data: JSON.stringify({
-				_id: $('#feed_name').val(),
+				name: $('#feed_name').val(),
 				url: $('#feed_url').val()
 			}),
 			success: function(data) {
@@ -104,7 +104,7 @@ $(function() {
 	jwerty.key('c', function() {
 		var current = vm.current_entry();
 		if (current >= 0 && current < vm.entries().length) {
-			window.open(vm.entries()[current]._id, '_blank');
+			window.open(vm.entries()[current].url, '_blank');
 		}
 	});
 

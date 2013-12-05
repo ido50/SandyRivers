@@ -7,7 +7,7 @@
 
 		<title>Sandy Rivers</title>
 
-		<link rel="stylesheet" href="vendor/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/main.css" />
 	</head>
 	<body class="container">
@@ -71,7 +71,7 @@
 							<div id="existing" class="tab-pane active">
 								<!-- ko if: feeds().length > 0 -->
 								<div class="list-group" data-bind="foreach: feeds">
-									<a href="#" class="list-group-item" data-bind="text: _id"></a>
+									<a href="#" class="list-group-item" data-bind="text: name"></a>
 								</div>
 								<!-- /ko -->
 								<!-- ko if: feeds().length == 0 -->
@@ -102,10 +102,10 @@
 			</div>
 		</div>
 
-		<script src="vendor/js/jquery.js"></script>
-		<script src="vendor/js/jwerty.js"></script>
-		<script src="vendor/js/bootstrap.min.js"></script>
-		<script src="vendor/js/knockout.js"></script>
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/jwerty/jwerty.js"></script>
+		<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="vendor/knockout.js/knockout.js"></script>
 
 		<script src="js/main.js"></script>
 	</body>
