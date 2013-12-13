@@ -23,8 +23,31 @@ function ViewModel() {
 		});
 	};
 
+	self.format_date = function(date) {
+		var match = date.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2})/);
+		return [match[1], match[2]].join(', ');
+	};
+
+	self.mark_all_read = function() {
+		$.ajax({
+			url: "/entries/mark_as_read",
+			type: "POST",
+			data: JSON.stringify({ all: true }),
+			success: function() {
+				self.load_entries(self.reading());
+			}
+		});
+	};
+
 	self.mark_as_read = function(index) {
-		//whatever
+		$.ajax({
+			url: "/entries/mark_as_read",
+			type: "POST",
+			data: JSON.stringify({ url: self.entries()[index].url }),
+			success: function() {
+				self.entries()[index].read = true;
+			}
+		});
 	};
 
 	self.hide = function(index, bool) {
@@ -85,8 +108,10 @@ $(function() {
 	jwerty.key('x', function() {
 		var current = vm.current_entry();
 		if (current < vm.entries().length) {
-			vm.mark_as_read(current);
-			vm.hide(current, true);
+			if (current >= 0) {
+				vm.mark_as_read(current);
+				vm.hide(current, true);
+			}
 			vm.current_entry(current + 1);
 		}
 	});

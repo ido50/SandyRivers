@@ -8,12 +8,17 @@ body > nav .badge {
 	margin-left: 0.5em;
 }
 
+.navbar-collapse.collapse {
+	padding: 0 10px;
+}
+
 #actions {
 	text-align: right;
 }
 
 h2 {
 	font-size: 1.4em;
+	margin-top: 10px;
 
 	a {
 		color: #B5D2D7;
@@ -24,7 +29,12 @@ h2 {
 	}
 }
 
+article small {
+	color: #ccc;
+}
+
 .entry_body {
+	margin-top: 10px;
 	display: none;
 
 	article.current & {
@@ -39,6 +49,11 @@ article.current h2 a {
 #manage_feeds {
 	.well {
 		margin-bottom: 0;
+	}
+
+	.tab-content {
+		max-height: 300px;
+		overflow-y: auto;
 	}
 
 	.modal-footer {
